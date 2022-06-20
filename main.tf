@@ -301,7 +301,6 @@ resource "azurerm_lb_probe" "lb_probe" {
 
 #Create lb rule for port 8080
 resource "azurerm_lb_rule" "LB_rule" {
-  #resource_group_name            = azurerm_resource_group.rg.name
   loadbalancer_id                = azurerm_lb.publicLB.id
   name                           = "LBRule"
   protocol                       = "Tcp"
@@ -309,7 +308,7 @@ resource "azurerm_lb_rule" "LB_rule" {
   backend_port                   = 8080
   frontend_ip_configuration_name = azurerm_lb.publicLB.frontend_ip_configuration[0].name
   probe_id                       = azurerm_lb_probe.lb_probe.id
-  #backend_address_pool_ids        = azurerm_lb_backend_address_pool.backend_address_pool_public.id
+  backend_address_pool_ids        = [azurerm_lb_backend_address_pool.backend_address_pool_public.id]
 }
 
 
